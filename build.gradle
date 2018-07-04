@@ -1,0 +1,38 @@
+plugins {
+    id 'ear'
+    id 'java'
+    id 'war'
+    id "com.bmuschko.tomcat" version "2.5"
+}
+
+group 'de.canitzp.web'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+}
+
+dependencies {
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    compile 'com.j2html:j2html:1.3.0'
+    def tomcatVersion = '7.0.57'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+    "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
+    tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
+        //exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+    }
+}
+
+tomcatRun.contextPath = '/'
+tomcatRunWar.contextPath = '/'
